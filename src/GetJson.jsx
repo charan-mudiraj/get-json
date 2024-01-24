@@ -121,7 +121,7 @@ export default function GetJson() {
     try {
       disableButton(e);
       setIsLoading(true);
-      const res = await fetch("https://get-json-backend.vercel.app/getJSON", {
+      const res = await fetch("https://get-json-backend.onrender.com/getJSON", {
         method: "post",
         headers: {
           "Content-Type": "application/json",
