@@ -30,7 +30,7 @@ export default function AboutCard() {
         <div id="demo-sec">
           <p className="about-title">Need a Demo ?</p>
           <div>
-            <a id="yt-link" href="https://www.youtube.com/feed/subscriptions">
+            <a id="yt-link" href="https://www.youtube.com/watch?v=SW8XS0zJ22U">
               Watch Demo
             </a>
           </div>
