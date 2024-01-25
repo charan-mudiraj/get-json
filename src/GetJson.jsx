@@ -26,6 +26,7 @@ function UrlElement({ id, updateUrl, url }) {
       value={url}
       className="url"
       autoComplete="off"
+      spellCheck="false"
     />
   );
 }
@@ -40,6 +41,7 @@ function ClassElement({ id, updateClass, cls }) {
         value={cls}
         className="class"
         autoComplete="off"
+        spellCheck="false"
       />
       <hr className="ckt-line" />
     </div>
