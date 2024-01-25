@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { urls, classes, keys, types } from "./components/atoms";
 import { useRecoilState } from "recoil";
 import "./GetJson.css";
@@ -119,6 +119,10 @@ export default function GetJson() {
     newList[id - 1] = newType;
     updateTypesList(newList);
   };
+  useEffect(() => {
+    // awake the server
+    fetch("https://get-json-backend.onrender.com/");
+  }, []);
   const getJSON = async (e) => {
     try {
       disableButton(e);
