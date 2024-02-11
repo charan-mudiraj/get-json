@@ -121,13 +121,13 @@ export default function GetJson() {
   };
   useEffect(() => {
     // awake the server
-    fetch("https://get-json-backend.onrender.com/");
+    fetch(`${BACKEND_URL}/`);
   }, []);
   const getJSON = async (e) => {
     try {
       disableButton(e);
       setIsLoading(true);
-      const res = await fetch("https://get-json-backend.onrender.com/getJSON", {
+      const res = await fetch(`${BACKEND_URL}/getJSON`, {
         method: "post",
         headers: {
           "Content-Type": "application/json",
