@@ -3,7 +3,10 @@ import "./SocialIcons.css";
 export default function SocialIcons() {
   return (
     <div className="card">
-      <a className="social-link2" href="https://github.com/Charan-Mudiraj">
+      <a
+        className="social-link2"
+        href="https://github.com/Charan-Mudiraj/Get-JSON---Frontend"
+      >
         <svg
           viewBox="0 0 496 512"
           height="1em"

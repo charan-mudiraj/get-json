@@ -1,8 +1,21 @@
-# React + Vite
+## How I got the idea ?
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+I was building [AMAZON CLONE](https://amazon-clone-by-charan.vercel.app/). I had no source to collect JSON data for categorties, product details, etc. Collecting(copying) the data from [AMAZON](https://amazon.in), and wrting it in JSON format for every product was a tedious task of the project.
 
-Currently, two official plugins are available:
+## What is this Application ?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+"Get JSON" is a simple web-scraping tool which provides JSON data from web-pages, required for your project. Thereby saving tons of copy-pasting time.
+
+## How does it work ?
+
+The URLs from which the similar(same props) data to be fetched are specified in URLs Section. The Classes(whole string) of required data's HTML element are specified in classes section, with optional key-names and type.
+
+Watch the [DEMO VIDEO](https://www.youtube.com/watch?v=SW8XS0zJ22U) if still not clear.
+
+## Who can use this ?
+
+Any developer who are building a Clone Application.
+
+## Links
+
+- [BACKEND](https://github.com/Charan-Mudiraj/Get-JSON---Backend)
