@@ -6,16 +6,36 @@ I was building [AMAZON CLONE](https://amazon-clone-by-charan.vercel.app/). I had
 
 "Get JSON" is a simple web-scraping tool which provides JSON data from web-pages, required for your project. Thereby saving tons of copy-pasting time.
 
-## How does it work ?
+## How does it work ? (Steps)
 
-The URLs from which the similar(same props) data to be fetched are specified in URLs Section. The Classes(whole string) of required data's HTML element are specified in classes section, with optional key-names and type.
+**Step-1:** The URLs from which the similar(same props) data to be fetched are specified in URLs Section.
+
+**Step-2:** The Classes(whole string) of required data's HTML element are specified in classes section, with optional key-names and data-type.
+
+![](./views/1.png)
+
+![](./views/2.png)
+
+**Step-3:** Hit the "Get JSON" Button.
+
+![](./views/3.png)
+
+**Step-4:** ...few moments later... Shazam !!. You have your JSON data from a webpage.
+
+![](./views/4.png)
+
+(And ofcourse the same keys can be fetched for mutiple URLs)
+
+![](./views/5.png)
 
 Watch the [DEMO VIDEO](https://www.youtube.com/watch?v=SW8XS0zJ22U) if still not clear.
 
 ## Who can use this ?
 
-Any developer who are building a Clone Application.
+Any developer who are building a Clone Application (or) who has requirement of JSON data from webpages for personal projects.
 
 ## Links
 
+- [LIVE](https://getjson.vercel.app/)
 - [BACKEND](https://github.com/Charan-Mudiraj/Get-JSON---Backend)
+- [DEMO VIDEO](https://www.youtube.com/watch?v=SW8XS0zJ22U)
