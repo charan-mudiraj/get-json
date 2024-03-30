@@ -10,7 +10,11 @@ I was building [AMAZON CLONE](https://amazon-clone-by-charan.vercel.app/). I had
 
 **Step-1:** The URLs from which the similar(same props) data to be fetched are specified in URLs Section.
 
-**Step-2:** The Classes(whole string) of required data's HTML element are specified in classes section, with optional key-names and data-type.
+**Step-2:** The Classes(whole string) of required data's HTML element are specified in classes section, with optional key-names, data-type and search-type.
+
+- **Key-name** : Unique name given to a value in an object.
+- **Data-type [String, Number, Boolean]** : Data-type of a value.
+- **Search-type [Single Value, Multiple Values]**: Search Until a value is found (or) Search whole page and find all values.
 
 ![](./views/1.png)
 

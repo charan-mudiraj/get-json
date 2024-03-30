@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [react()],
   define: {
     BACKEND_URL: JSON.stringify(
-      process.env.BACKEND_URL || "http://localhost:8000"
+      "http://localhost:8000" || process.env.BACKEND_URL
     ),
   },
 });

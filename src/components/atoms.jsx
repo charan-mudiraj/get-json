@@ -16,5 +16,8 @@ const types = atom({
   key: "types",
   default: ["string"],
 });
-
-export { urls, classes, keys, types };
+const searchTypes = atom({
+  key: "searchTypes",
+  default: ["single"],
+});
+export { urls, classes, keys, types, searchTypes };

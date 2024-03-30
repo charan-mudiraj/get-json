@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { urls, classes, keys, types } from "./components/atoms";
+import { urls, classes, keys, types, searchTypes } from "./components/atoms";
 import { useRecoilState } from "recoil";
 import "./GetJson.css";
 
@@ -43,7 +43,7 @@ function ClassElement({ id, updateClass, cls }) {
         autoComplete="off"
         spellCheck="false"
       />
-      <hr className="ckt-line" />
+      <hr className="ckts-line" />
     </div>
   );
 }
@@ -59,21 +59,37 @@ function KeyElement({ id, updateKey, keyName }) {
         className="key"
         autoComplete="off"
       />
-      <hr className="ckt-line" />
+      <hr className="ckts-line" />
     </div>
   );
 }
-function SelectElement({ id, typeName, updateType }) {
+function TypeSelectElement({ id, typeName, updateType }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center" }}>
+      <select
+        id={"type-" + id}
+        value={typeName}
+        onInput={updateType}
+        className="type"
+      >
+        <option value="string">String</option>
+        <option value="number">Number</option>
+        <option value="boolean">Boolean</option>
+      </select>
+      <hr className="ckts-line" />
+    </div>
+  );
+}
+function SearchTypeSelectElement({ id, searchTypeName, updateSearchType }) {
   return (
     <select
-      id={"type-" + id}
-      value={typeName}
-      onInput={updateType}
-      className="type"
+      id={"searchType-" + id}
+      value={searchTypeName}
+      onInput={updateSearchType}
+      className="searchType"
     >
-      <option value="string">String</option>
-      <option value="number">Number</option>
-      <option value="boolean">Boolean</option>
+      <option value="single">Single Value</option>
+      <option value="multiple">Multiple Values</option>
     </select>
   );
 }
@@ -87,30 +103,46 @@ const enableButtun = (e) => {
   e.target.style.opacity = "1"; // full
   e.target.style.pointerEvents = "auto";
 };
+// const isURLValid = (url) => {
+//   const urlPattern = new RegExp(
+//     "^(https?:\\/\\/)?" + // Protocol (http or https), followed by '://'
+//       "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // Domain name
+//       "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR IP (v4) address
+//       "(\\:\\d+)?" + // Optional port number preceded by colon
+//       "(\\/[-a-z\\d%_.~+]*)*" + // Path with optional segments separated by slashes
+//       "(\\?[;&a-z\\d%_.~+=-]*)?" + // Optional query string starting with '?'
+//       "(\\#[-a-z\\d_]*)?$", // Optional fragment identifier starting with '#'
+//     "i" // Case-insensitive match
+//   );
+//   return !!urlPattern.test(url);
+// };
 export default function GetJson() {
   const [urlsList, updateUrlsList] = useRecoilState(urls);
   const [classesList, updateClassesList] = useRecoilState(classes);
   const [keysList, updateKeysList] = useRecoilState(keys);
   const [typesList, updateTypesList] = useRecoilState(types);
+  const [searchTypesList, updateSearchTypesList] = useRecoilState(searchTypes);
   const [isLoading, setIsLoading] = useState(false);
   const [jsonData, setJsonData] = useState("");
+  const [isBackendUp, setIsBackendUp] = useState(false);
+  const [isUserAlerted, setIsUserAlerted] = useState(false);
 
   const updateUrl = (id) => {
     const newList = [...urlsList];
     const newUrl = document.getElementById("url-" + id).value;
-    newList[id - 1] = newUrl;
+    newList[id - 1] = newUrl.trim(" ");
     updateUrlsList(newList);
   };
   const updateClass = (id) => {
     const newList = [...classesList];
     const newClass = document.getElementById("class-" + id).value;
-    newList[id - 1] = newClass;
+    newList[id - 1] = newClass.trim(" ");
     updateClassesList(newList);
   };
   const updateKey = (id) => {
     const newList = [...keysList];
     const newKey = document.getElementById("key-" + id).value;
-    newList[id - 1] = newKey;
+    newList[id - 1] = newKey.trim(" ");
     updateKeysList(newList);
   };
   const updateType = (id) => {
@@ -119,11 +151,78 @@ export default function GetJson() {
     newList[id - 1] = newType;
     updateTypesList(newList);
   };
+  const updateSearchType = (id) => {
+    const newList = [...searchTypesList];
+    const newSearchType = document.getElementById("searchType-" + id).value;
+    newList[id - 1] = newSearchType;
+    updateSearchTypesList(newList);
+  };
   useEffect(() => {
     // awake the server
-    fetch(`${BACKEND_URL}/`);
+    const awake = async () => {
+      const res = await fetch(`${BACKEND_URL}/`, {
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      const status = data.status;
+      if (status == 200) {
+        setIsBackendUp(true);
+      }
+      if (isUserAlerted) {
+        alert("Backend Server is Up !");
+      }
+    };
+    awake();
   }, []);
+
   const getJSON = async (e) => {
+    // URLs Validation
+    // let areURLsValid = true;
+    // for (const url of urlsList) {
+    //   if (url && !isURLValid(url)) {
+    //     alert(
+    //       '"' + url + '"' + " is not a valid URL.\nPlease check and try again."
+    //     );
+    //     isValidURLs = false;
+    //     break;
+    //   }
+    // }
+    // if (!areURLsValid) {
+    //   return;
+    // }
+
+    // keys Validation (no spaces in b/w)
+    let areKeysValid = true;
+    for (const key of keysList) {
+      if (/\s/.test(key)) {
+        alert(
+          "INVALID KEY FORMAT => " +
+            '"' +
+            key +
+            '"' +
+            "\nKeys cannot contain spaces."
+        );
+        areKeysValid = false;
+        break;
+      }
+    }
+    if (!areKeysValid) {
+      return;
+    }
+
+    // Alerting to wait untill backend server is up
+    if (!isBackendUp) {
+      setIsUserAlerted(true);
+      alert(
+        "Backend Server hasn't started yet. Feel Free to add more URLs in the meantime.\nYou will be alerted when the Backend is Up."
+      );
+      return;
+    }
+
+    // Send Request and GET JSON !
     try {
       disableButton(e);
       setIsLoading(true);
@@ -137,6 +236,7 @@ export default function GetJson() {
           classes: classesList,
           keys: keysList,
           types: typesList,
+          searchTypes: searchTypesList,
         }),
       });
       const data = await res.json();
@@ -168,14 +268,15 @@ export default function GetJson() {
       </button>
     );
   }
-  function ClassKeyTypeAddButton() {
+  function ClassKeyTypeSearchAddButton() {
     return (
       <button
-        id="class-key-type-add"
+        id="class-key-type-search-add"
         onClick={() => {
           updateClassesList((list) => [...list, ""]);
           updateKeysList((list) => [...list, ""]);
           updateTypesList((list) => [...list, "string"]);
+          updateSearchTypesList((list) => [...list, "single"]);
         }}
       >
         +
@@ -197,10 +298,10 @@ export default function GetJson() {
           ))}
         </div>
       </div>
-      <hr className="url-crt-line" />
-      <div id="class-key-type-grid">
-        <ClassKeyTypeAddButton />
-        <div id="ckt-div">
+      <hr className="url-crts-line" />
+      <div id="class-key-type-search-grid">
+        <ClassKeyTypeSearchAddButton />
+        <div id="ckts-div">
           <div id="classes-div">
             {classesList.map((cls, i) => (
               <ClassElement
@@ -223,7 +324,7 @@ export default function GetJson() {
           </div>
           <div id="types-div">
             {typesList.map((type, i) => (
-              <SelectElement
+              <TypeSelectElement
                 key={i}
                 id={i + 1}
                 typeName={type}
@@ -231,9 +332,18 @@ export default function GetJson() {
               />
             ))}
           </div>
+          <div id="searchTypes-div">
+            {searchTypesList.map((searchType, i) => (
+              <SearchTypeSelectElement
+                key={i}
+                id={i + 1}
+                searchTypeName={searchType}
+                updateSearchType={() => updateSearchType(i + 1)}
+              />
+            ))}
+          </div>
         </div>
       </div>
-
       <button id="get-btn" onClick={getJSON}>
         Get JSON
       </button>
