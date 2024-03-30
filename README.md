@@ -32,7 +32,7 @@ I was building [AMAZON CLONE](https://amazon-clone-by-charan.vercel.app/). I had
 
 ![](./views/5.png)
 
-Watch the [DEMO VIDEO](https://www.youtube.com/watch?v=SW8XS0zJ22U) if still not clear.
+Watch the [DEMO VIDEO](https://www.youtube.com/watch?v=SW8XS0zJ22U&list=PLgSNzrXIGnTo3etHGDj1KN23acOJbBf4T) if still not clear.
 
 ## Who can use this ?
 
@@ -42,4 +42,5 @@ Any developer who are building a Clone Application (or) who has requirement of J
 
 - [LIVE](https://getjson.vercel.app/)
 - [BACKEND](https://github.com/Charan-Mudiraj/Get-JSON---Backend)
-- [DEMO VIDEO](https://www.youtube.com/watch?v=SW8XS0zJ22U)
+- [DEMO VIDEO](https://www.youtube.com/watch?v=SW8XS0zJ22U&list=PLgSNzrXIGnTo3etHGDj1KN23acOJbBf4T)
+- [New Upgrade Demo Video](https://www.youtube.com/watch?v=36JRiw6xad0&list=PLgSNzrXIGnTo3etHGDj1KN23acOJbBf4T&index=2)
