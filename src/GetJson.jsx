@@ -157,6 +157,7 @@ export default function GetJson() {
     newList[id - 1] = newSearchType;
     updateSearchTypesList(newList);
   };
+
   useEffect(() => {
     // awake the server
     const awake = async () => {
@@ -171,12 +172,15 @@ export default function GetJson() {
       if (status == 200) {
         setIsBackendUp(true);
       }
-      if (isUserAlerted) {
-        alert("Backend Server is Up !");
-      }
     };
     awake();
   }, []);
+  useEffect(() => {
+    if (isUserAlerted) {
+      alert("Backend Server is Up !");
+      setIsUserAlerted(false);
+    }
+  }, [isBackendUp]);
 
   const getJSON = async (e) => {
     // URLs Validation
