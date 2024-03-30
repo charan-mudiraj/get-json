@@ -213,7 +213,7 @@ export default function GetJson() {
       return;
     }
 
-    // Alerting to wait untill backend server is up
+    // Alerting to wait until backend server is up
     if (!isBackendUp) {
       setIsUserAlerted(true);
       alert(
