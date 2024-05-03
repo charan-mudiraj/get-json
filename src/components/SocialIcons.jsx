@@ -6,6 +6,7 @@ export default function SocialIcons() {
       <a
         className="social-link2"
         href="https://github.com/Charan-Mudiraj/Get-JSON---Frontend"
+        target="_blank"
       >
         <svg
           viewBox="0 0 496 512"
@@ -19,6 +20,7 @@ export default function SocialIcons() {
       <a
         className="social-link4"
         href="https://www.linkedin.com/in/charan-mudiraj-868086230"
+        target="_blank"
       >
         <svg
           fill="#fff"
