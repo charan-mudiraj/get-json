@@ -34,7 +34,7 @@
   background-color: #21262d;
 }
 #url-add:hover,
-#class-key-type-add:hover {
+#class-key-type-search-add:hover {
   outline: 3px dashed white;
 }
 .url {
