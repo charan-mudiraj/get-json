@@ -32,7 +32,7 @@ export default function AboutCard() {
           <div>
             <a
               id="yt-link"
-              href="https://www.youtube.com/watch?v=SW8XS0zJ22U"
+              href="https://www.youtube.com/watch?v=SW8XS0zJ22U&list=PLgSNzrXIGnTo3etHGDj1KN23acOJbBf4T"
               target="_blank"
             >
               Watch Demo
