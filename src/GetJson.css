@@ -120,6 +120,9 @@
   margin: 40px 0;
   margin-left: 90px;
 }
+#jsonData {
+  user-select: text;
+}
 #copy-btn {
   width: 100%;
   text-align: right;
