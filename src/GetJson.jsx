@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { urls, classes, keys, types, searchTypes } from "./components/atoms";
+import {
+  urls,
+  classes,
+  keys,
+  types,
+  searchTypes,
+  valueTypes,
+} from "./components/atoms";
 import { useRecoilState } from "recoil";
 import "./GetJson.css";
 
@@ -43,7 +50,7 @@ function ClassElement({ id, updateClass, cls }) {
         autoComplete="off"
         spellCheck="false"
       />
-      <hr className="ckts-line" />
+      <hr className="fields-dividing-horizontal-line" />
     </div>
   );
 }
@@ -59,7 +66,7 @@ function KeyElement({ id, updateKey, keyName }) {
         className="key"
         autoComplete="off"
       />
-      <hr className="ckts-line" />
+      <hr className="fields-dividing-horizontal-line" />
     </div>
   );
 }
@@ -76,20 +83,37 @@ function TypeSelectElement({ id, typeName, updateType }) {
         <option value="number">Number</option>
         <option value="boolean">Boolean</option>
       </select>
-      <hr className="ckts-line" />
+      <hr className="fields-dividing-horizontal-line" />
     </div>
   );
 }
 function SearchTypeSelectElement({ id, searchTypeName, updateSearchType }) {
   return (
+    <div style={{ display: "flex", alignItems: "center" }}>
+      <select
+        id={"searchType-" + id}
+        value={searchTypeName}
+        onInput={updateSearchType}
+        className="searchType"
+      >
+        <option value="single">Single Value</option>
+        <option value="multiple">Multiple Values</option>
+      </select>
+      <hr className="fields-dividing-horizontal-line" />
+    </div>
+  );
+}
+function ValueTypeSelectElement({ id, updateValueType, valueTypeName }) {
+  return (
     <select
-      id={"searchType-" + id}
-      value={searchTypeName}
-      onInput={updateSearchType}
-      className="searchType"
+      id={"valueType-" + id}
+      value={valueTypeName}
+      onInput={updateValueType}
+      className="valueType"
     >
-      <option value="single">Single Value</option>
-      <option value="multiple">Multiple Values</option>
+      <option value="innerText">Inner Text</option>
+      <option value="href">href</option>
+      <option value="src">src</option>
     </select>
   );
 }
@@ -122,6 +146,7 @@ export default function GetJson() {
   const [keysList, updateKeysList] = useRecoilState(keys);
   const [typesList, updateTypesList] = useRecoilState(types);
   const [searchTypesList, updateSearchTypesList] = useRecoilState(searchTypes);
+  const [valueTypesList, updateValueTypesList] = useRecoilState(valueTypes);
   const [isLoading, setIsLoading] = useState(false);
   const [jsonData, setJsonData] = useState("");
   const [isBackendUp, setIsBackendUp] = useState(false);
@@ -156,6 +181,12 @@ export default function GetJson() {
     const newSearchType = document.getElementById("searchType-" + id).value;
     newList[id - 1] = newSearchType;
     updateSearchTypesList(newList);
+  };
+  const updateValueType = (id) => {
+    const newList = [...valueTypesList];
+    const newSearchType = document.getElementById("valueType-" + id).value;
+    newList[id - 1] = newSearchType;
+    updateValueTypesList(newList);
   };
 
   useEffect(() => {
@@ -241,6 +272,7 @@ export default function GetJson() {
           keys: keysList,
           types: typesList,
           searchTypes: searchTypesList,
+          valueTypes: valueTypesList,
         }),
       });
       const data = await res.json();
@@ -265,22 +297,23 @@ export default function GetJson() {
     // }
     return (
       <button
-        id="url-add"
+        id="url-add-btn"
         onClick={() => updateUrlsList((list) => [...list, ""])}
       >
         +
       </button>
     );
   }
-  function ClassKeyTypeSearchAddButton() {
+  function ClassAddButton() {
     return (
       <button
-        id="class-key-type-search-add"
+        id="class-add-btn"
         onClick={() => {
           updateClassesList((list) => [...list, ""]);
           updateKeysList((list) => [...list, ""]);
           updateTypesList((list) => [...list, "string"]);
           updateSearchTypesList((list) => [...list, "single"]);
+          updateValueTypesList((list) => [...list, "innerText"]);
         }}
       >
         +
@@ -302,10 +335,10 @@ export default function GetJson() {
           ))}
         </div>
       </div>
-      <hr className="url-crts-line" />
-      <div id="class-key-type-search-grid">
-        <ClassKeyTypeSearchAddButton />
-        <div id="ckts-div">
+      <hr className="url-classes-line" />
+      <div id="classes-grid">
+        <ClassAddButton />
+        <div id="cktsv-div">
           <div id="classes-div">
             {classesList.map((cls, i) => (
               <ClassElement
@@ -343,6 +376,16 @@ export default function GetJson() {
                 id={i + 1}
                 searchTypeName={searchType}
                 updateSearchType={() => updateSearchType(i + 1)}
+              />
+            ))}
+          </div>
+          <div id="valueTypes-div">
+            {valueTypesList.map((valueType, i) => (
+              <ValueTypeSelectElement
+                key={i}
+                id={i + 1}
+                valueTypeName={valueType}
+                updateValueType={() => updateValueType(i + 1)}
               />
             ))}
           </div>

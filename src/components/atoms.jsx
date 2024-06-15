@@ -20,4 +20,8 @@ const searchTypes = atom({
   key: "searchTypes",
   default: ["single"],
 });
-export { urls, classes, keys, types, searchTypes };
+const valueTypes = atom({
+  key: "valueTypes",
+  default: ["innerText"],
+});
+export { urls, classes, keys, types, searchTypes, valueTypes };
