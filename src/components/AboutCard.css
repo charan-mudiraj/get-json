@@ -1,13 +1,13 @@
 #about {
   color: rgba(255, 255, 255, 0.856);
   font-family: Comic Sans MS;
-  width: 400px;
+  width: 410px;
   text-align: center;
   display: grid;
   grid-template-columns: auto auto;
   margin-top: 25px;
   position: fixed;
-  left: -297px;
+  left: -307px;
   top: -2px;
   transition: 0.5s;
   z-index: 3;

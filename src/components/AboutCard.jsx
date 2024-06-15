@@ -23,7 +23,7 @@ export default function AboutCard() {
             The URLs from which the similar(same props) data to be fetched are
             specified in URLs Section. The Classes(whole string) of required
             data's HTML element are specified in classes section, with optional
-            key-names and type.
+            other optional settings.
           </p>
         </div>
         <hr className="about-line" />
@@ -32,7 +32,7 @@ export default function AboutCard() {
           <div>
             <a
               id="yt-link"
-              href="https://www.youtube.com/watch?v=SW8XS0zJ22U&list=PLgSNzrXIGnTo3etHGDj1KN23acOJbBf4T"
+              href="https://www.youtube.com/watch?v=XYSKLEEvNYc&list=PLgSNzrXIGnTo3etHGDj1KN23acOJbBf4T&index=3"
               target="_blank"
             >
               Watch Demo
