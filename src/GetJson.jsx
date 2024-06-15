@@ -13,6 +13,7 @@ import "./GetJson.css";
 import JsonLoader from "./components/Loader";
 import jsonFormatHighlight from "json-format-highlight";
 import CopyButton from "./components/CopyButton";
+import CheckBox from "./components/CheckBox";
 
 const customColorOptions = {
   keyColor: "white",
@@ -31,7 +32,7 @@ function UrlElement({ id, updateUrl, url }) {
       id={"url-" + id}
       onInput={updateUrl}
       value={url}
-      className="url"
+      className="input-text url-input"
       autoComplete="off"
       spellCheck="false"
     />
@@ -46,7 +47,7 @@ function ClassElement({ id, updateClass, cls }) {
         id={"class-" + id}
         onInput={updateClass}
         value={cls}
-        className="class"
+        className="input-text class-input-text"
         autoComplete="off"
         spellCheck="false"
       />
@@ -63,7 +64,7 @@ function KeyElement({ id, updateKey, keyName }) {
         id={"key-" + id}
         onInput={updateKey}
         value={keyName}
-        className="key"
+        className="input-text class-input-text"
         autoComplete="off"
       />
       <hr className="fields-dividing-horizontal-line" />
@@ -77,7 +78,7 @@ function TypeSelectElement({ id, typeName, updateType }) {
         id={"type-" + id}
         value={typeName}
         onInput={updateType}
-        className="type"
+        className="input-text class-input-select"
       >
         <option value="string">String</option>
         <option value="number">Number</option>
@@ -94,7 +95,7 @@ function SearchTypeSelectElement({ id, searchTypeName, updateSearchType }) {
         id={"searchType-" + id}
         value={searchTypeName}
         onInput={updateSearchType}
-        className="searchType"
+        className="input-text class-input-select"
       >
         <option value="single">Single Value</option>
         <option value="multiple">Multiple Values</option>
@@ -105,16 +106,33 @@ function SearchTypeSelectElement({ id, searchTypeName, updateSearchType }) {
 }
 function ValueTypeSelectElement({ id, updateValueType, valueTypeName }) {
   return (
-    <select
-      id={"valueType-" + id}
-      value={valueTypeName}
-      onInput={updateValueType}
-      className="valueType"
-    >
-      <option value="innerText">Inner Text</option>
-      <option value="href">href</option>
-      <option value="src">src</option>
-    </select>
+    <>
+      {valueTypeName === "innerText" ||
+      valueTypeName === "href" ||
+      valueTypeName === "src" ? (
+        <select
+          id={"valueType-" + id}
+          value={valueTypeName}
+          onInput={updateValueType}
+          className="input-text class-input-select"
+        >
+          <option value="innerText">inner text</option>
+          <option value="href">href</option>
+          <option value="src">src</option>
+          <option value="">custom</option>
+        </select>
+      ) : (
+        <input
+          type="text"
+          placeholder={"Value-Type-" + id}
+          id={"valueType-" + id}
+          onInput={updateValueType}
+          value={valueTypeName}
+          className="input-text class-input-text"
+          autoComplete="off"
+        />
+      )}
+    </>
   );
 }
 const disableButton = (e) => {
@@ -151,23 +169,27 @@ export default function GetJson() {
   const [jsonData, setJsonData] = useState("");
   const [isBackendUp, setIsBackendUp] = useState(false);
   const [isUserAlerted, setIsUserAlerted] = useState(false);
+  const [globalSettings, setGlobalSettings] = useState({
+    url: false,
+    id: true,
+  });
 
   const updateUrl = (id) => {
     const newList = [...urlsList];
     const newUrl = document.getElementById("url-" + id).value;
-    newList[id - 1] = newUrl.trim(" ");
+    newList[id - 1] = newUrl.trim("");
     updateUrlsList(newList);
   };
   const updateClass = (id) => {
     const newList = [...classesList];
     const newClass = document.getElementById("class-" + id).value;
-    newList[id - 1] = newClass.trim(" ");
+    newList[id - 1] = newClass;
     updateClassesList(newList);
   };
   const updateKey = (id) => {
     const newList = [...keysList];
     const newKey = document.getElementById("key-" + id).value;
-    newList[id - 1] = newKey.trim(" ");
+    newList[id - 1] = newKey.trim("");
     updateKeysList(newList);
   };
   const updateType = (id) => {
@@ -184,9 +206,17 @@ export default function GetJson() {
   };
   const updateValueType = (id) => {
     const newList = [...valueTypesList];
-    const newSearchType = document.getElementById("valueType-" + id).value;
-    newList[id - 1] = newSearchType;
+    const newValueType = document.getElementById("valueType-" + id).value;
+    console.log(newValueType);
+    newList[id - 1] = newValueType;
     updateValueTypesList(newList);
+  };
+  const toggleGlobalSetting = (setting) => {
+    setGlobalSettings((current) => {
+      const currentSettings = { ...current };
+      currentSettings[setting] = !currentSettings[setting];
+      return currentSettings;
+    });
   };
 
   useEffect(() => {
@@ -273,6 +303,7 @@ export default function GetJson() {
           types: typesList,
           searchTypes: searchTypesList,
           valueTypes: valueTypesList,
+          globalSettings: globalSettings,
         }),
       });
       const data = await res.json();
@@ -289,6 +320,7 @@ export default function GetJson() {
     setIsLoading(false);
     enableButtun(e);
   };
+
   function UrlAddButton() {
     // if (urlsList.length > 5) {
     //   alert(
@@ -297,17 +329,37 @@ export default function GetJson() {
     // }
     return (
       <button
-        id="url-add-btn"
+        className="add-btn"
         onClick={() => updateUrlsList((list) => [...list, ""])}
       >
         +
       </button>
     );
   }
+  function UrlRemoveButtom() {
+    return (
+      <button
+        className="remove-btn"
+        onClick={() =>
+          updateUrlsList((list) => {
+            const currentList = [...list];
+            if (currentList.length > 1) {
+              currentList.pop();
+            } else {
+              currentList[0] = "";
+            }
+            return currentList;
+          })
+        }
+      >
+        -
+      </button>
+    );
+  }
   function ClassAddButton() {
     return (
       <button
-        id="class-add-btn"
+        className="add-btn"
         onClick={() => {
           updateClassesList((list) => [...list, ""]);
           updateKeysList((list) => [...list, ""]);
@@ -320,8 +372,82 @@ export default function GetJson() {
       </button>
     );
   }
+  function ClassRemoveButton() {
+    return (
+      <button
+        className="remove-btn"
+        onClick={() => {
+          updateClassesList((list) => {
+            const currentList = [...list];
+            if (currentList.length > 1) {
+              currentList.pop();
+            } else {
+              currentList[0] = "";
+            }
+            return currentList;
+          });
+          updateKeysList((list) => {
+            const currentList = [...list];
+            if (currentList.length > 1) {
+              currentList.pop();
+            } else {
+              currentList[0] = "";
+            }
+            return currentList;
+          });
+          updateTypesList((list) => {
+            const currentList = [...list];
+            if (currentList.length > 1) {
+              currentList.pop();
+            } else {
+              currentList[0] = "string";
+            }
+            return currentList;
+          });
+          updateSearchTypesList((list) => {
+            const currentList = [...list];
+            if (currentList.length > 1) {
+              currentList.pop();
+            } else {
+              currentList[0] = "single";
+            }
+            return currentList;
+          });
+          updateValueTypesList((list) => {
+            const currentList = [...list];
+            if (currentList.length > 1) {
+              currentList.pop();
+            } else {
+              currentList[0] = "innerText";
+            }
+            return currentList;
+          });
+        }}
+      >
+        -
+      </button>
+    );
+  }
   return (
     <div id="get-json">
+      <div id="global-settings-div">
+        <div>Global Settings</div>
+        <div
+          className="global-setting"
+          onClick={() => toggleGlobalSetting("url")}
+        >
+          <CheckBox isChecked={globalSettings.url} />
+          <div>Include URL</div>
+        </div>
+        <div
+          className="global-setting"
+          onClick={() => toggleGlobalSetting("id")}
+        >
+          <CheckBox isChecked={globalSettings.id} />
+          <div>Include Id</div>
+        </div>
+      </div>
+
       <div id="url-grid">
         <UrlAddButton />
         <div id="urls-div">
@@ -334,6 +460,7 @@ export default function GetJson() {
             />
           ))}
         </div>
+        <UrlRemoveButtom />
       </div>
       <hr className="url-classes-line" />
       <div id="classes-grid">
@@ -390,6 +517,7 @@ export default function GetJson() {
             ))}
           </div>
         </div>
+        <ClassRemoveButton />
       </div>
       <button id="get-btn" onClick={getJSON}>
         Get JSON
