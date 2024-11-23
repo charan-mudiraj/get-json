@@ -1,0 +1,106 @@
+#saved {
+  color: rgba(255, 255, 255, 0.856);
+  font-family: Comic Sans MS;
+  width: 410px;
+  text-align: center;
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-top: 25px;
+  position: fixed;
+  right: -335px;
+  top: -2px;
+  transition: 0.5s;
+  z-index: 3;
+}
+#saved.closed {
+  right: 0;
+}
+.saved-flex-row {
+  display: flex;
+  flex-direction: column;
+  background-color: #0d1117;
+  border-radius: 25px 0 0 25px;
+  box-shadow: 0 0 10px 2px rgba(22, 22, 22, 0.705);
+  z-index: 2;
+  padding-bottom: 5px;
+}
+.saved-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.saved-cards > div {
+  border: 2px dashed rgba(255, 255, 255, 0.507);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+.saved-line {
+  border: 2px dashed rgba(255, 255, 255, 0.856);
+  margin: 0 22px 0 15px;
+}
+.saved-title {
+  color: rgba(1, 247, 83, 0.808);
+}
+#saved-card-tag {
+  transform: rotate(90deg);
+  position: relative;
+  height: fit-content;
+  right: -24px;
+  top: 60px;
+  background-color: rgba(179, 97, 3, 0.911);
+  padding: 3px 25px 3px 7px;
+  border-radius: 0 0 30px 7px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.saved-input-text {
+  background-color: transparent;
+  border: none;
+  background-color: white;
+  padding: 8px;
+  border-radius: 7px;
+  margin: 8px 0;
+  background-color: transparent;
+  outline: 1.5px solid white;
+  color: rgba(255, 255, 255, 0.705);
+  font-size: 15px;
+  background-color: transparent;
+  height: 15px;
+  width: 100%;
+}
+.saved-input-text:focus {
+  outline: none;
+  box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.87);
+}
+.saved-btn {
+  cursor: pointer;
+  outline: 2px solid rgba(255, 255, 255, 0.507);
+  box-shadow: none;
+  border: none;
+  padding: 5px 42px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.507);
+  border-radius: 7px;
+  position: relative;
+  top: 5px;
+  background-color: transparent;
+  font-size: 15px;
+  width: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.saved-btn:hover {
+  outline: 2px solid rgba(255, 255, 255, 0.856);
+  color: rgba(255, 255, 255, 0.856);
+}
+
+#saved-cards-scroller {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 15px;
+}

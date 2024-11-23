@@ -140,7 +140,7 @@ const disableButton = (e) => {
   e.target.style.opacity = "0.5";
   e.target.style.pointerEvents = "none";
 };
-const enableButtun = (e) => {
+const enableButton = (e) => {
   e.target.disabled = false;
   e.target.style.opacity = "1"; // full
   e.target.style.pointerEvents = "auto";
@@ -219,29 +219,42 @@ export default function GetJson() {
     });
   };
 
+  const awakeServer = async () => {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/`, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    const status = data.status;
+    if (status == 200) {
+      setIsBackendUp(true);
+    }
+  };
+
   useEffect(() => {
-    // awake the server
-    const awake = async () => {
-      const res = await fetch(`${BACKEND_URL}/`, {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
-      const status = data.status;
-      if (status == 200) {
-        setIsBackendUp(true);
-      }
-    };
-    awake();
+    awakeServer();
   }, []);
+
   useEffect(() => {
     if (isUserAlerted) {
       alert("Backend Server is Up !");
       setIsUserAlerted(false);
     }
   }, [isBackendUp]);
+
+  const getPayload = () => {
+    return JSON.stringify({
+      urls: urlsList,
+      classes: classesList,
+      keys: keysList,
+      types: typesList,
+      searchTypes: searchTypesList,
+      valueTypes: valueTypesList,
+      globalSettings: globalSettings,
+    });
+  };
 
   const getJSON = async (e) => {
     // URLs Validation
@@ -278,12 +291,13 @@ export default function GetJson() {
       return;
     }
 
-    // Alerting to wait until backend server is up
-    if (!isBackendUp) {
+    // Alerting to wait until backend server is up, if urls are more than 5.
+    if (!isBackendUp && urlsList.length > 5) {
       setIsUserAlerted(true);
       alert(
         "Backend Server hasn't started yet. Feel Free to add more URLs in the meantime.\nYou will be alerted when the Backend is Up."
       );
+
       return;
     }
 
@@ -291,20 +305,15 @@ export default function GetJson() {
     try {
       disableButton(e);
       setIsLoading(true);
-      const res = await fetch(`${BACKEND_URL}/getJSON`, {
+      const backendURL = isBackendUp
+        ? import.meta.env.VITE_BACKEND_URL
+        : import.meta.env.VITE_ALT_BACKEND_URL;
+      const res = await fetch(`${backendURL}/getJSON`, {
         method: "post",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          urls: urlsList,
-          classes: classesList,
-          keys: keysList,
-          types: typesList,
-          searchTypes: searchTypesList,
-          valueTypes: valueTypesList,
-          globalSettings: globalSettings,
-        }),
+        body: getPayload(),
       });
       const data = await res.json();
       setJsonData(JSON.stringify(data));
@@ -318,13 +327,13 @@ export default function GetJson() {
       alert("Couldn't Connect to Backend.");
     }
     setIsLoading(false);
-    enableButtun(e);
+    enableButton(e);
   };
 
   function UrlAddButton() {
     // if (urlsList.length > 5) {
     //   alert(
-    //     "Fetching data from atmost 5 URLs is advisible to avoid server crashes."
+    //     "Fetching data from atmost 5 URLs is advisable to avoid server crashes."
     //   );
     // }
     return (

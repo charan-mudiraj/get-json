@@ -1,6 +1,6 @@
 ## How I got the idea ?
 
-I was building [AMAZON CLONE](https://amazon-clone-by-charan.vercel.app/). I had no source to collect JSON data for categorties, product details, etc. Collecting(copying) the data from [AMAZON](https://amazon.in), and wrting it in JSON format for every product was a tedious task of the project.
+I was building [AMAZON CLONE](https://amazon-clone-by-charan.vercel.app/). I had no source to collect JSON data for categories, product details, etc. Collecting(copying) the data from [AMAZON](https://amazon.in), and writing it in JSON format for every product was a tedious task of the project.
 
 ## What is this Application ?
 
@@ -10,7 +10,7 @@ I was building [AMAZON CLONE](https://amazon-clone-by-charan.vercel.app/). I had
 
 **Step-1:** The URLs from which the similar(same props) data to be fetched are specified in URLs Section.
 
-**Step-2:** The Classes(whole string) of required data's HTML element are specified in classes section, with optional key-names, data-type and search-type.
+**Step-2:** The Classes(whole string) of required data's HTML element are specified in classes section, with other optional settings.
 
 - **Key-name** : Unique name given to a value in an object.
 - **Data-type [String, Number, Boolean]** : Data-type of a value.
@@ -33,9 +33,15 @@ I was building [AMAZON CLONE](https://amazon-clone-by-charan.vercel.app/). I had
 
 ![](./views/5.png)
 
-(And ofcourse the same keys can be fetched for mutiple URLs)
+(And ofcourse the same keys can be fetched for multiple URLs)
 
 ![](./views/6.png)
+
+## Saving Inputs
+
+You can save the inputs(urls, classes, etc) to import and access in future.
+
+![](./views/7.png)
 
 Watch the [DEMO VIDEO](https://www.youtube.com/watch?v=XYSKLEEvNYc&list=PLgSNzrXIGnTo3etHGDj1KN23acOJbBf4T&index=3) if still not clear.
 

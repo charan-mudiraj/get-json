@@ -22,8 +22,8 @@ export default function AboutCard() {
           <p className="about-desc">
             The URLs from which the similar(same props) data to be fetched are
             specified in URLs Section. The Classes(whole string) of required
-            data's HTML element are specified in classes section, with optional
-            other optional settings.
+            data's HTML element are specified in classes section, with other
+            optional settings.
           </p>
         </div>
         <hr className="about-line" />
