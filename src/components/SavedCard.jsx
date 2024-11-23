@@ -92,6 +92,10 @@ export default function SavedCard() {
   };
 
   const onImport = (item) => {
+    const isConfirmed = confirm(
+      `All the existing inputs will be replaced the inputs in \`${item.title}\`.\nAre you sure about this ?`
+    );
+    if (!isConfirmed) return;
     updateUrlsList(item.data.urls);
     updateClassesList(item.data.classes);
     updateKeysList(item.data.keys);
