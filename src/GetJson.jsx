@@ -43,7 +43,7 @@ function ClassElement({ id, updateClass, cls }) {
     <div style={{ display: "flex", alignItems: "center" }}>
       <input
         type="text"
-        placeholder={"Class-" + id}
+        placeholder={"Selector-" + id}
         id={"class-" + id}
         onInput={updateClass}
         value={cls}
@@ -247,7 +247,7 @@ export default function GetJson() {
   const getPayload = () => {
     return JSON.stringify({
       urls: urlsList,
-      classes: classesList,
+      selectors: classesList,
       keys: keysList,
       types: typesList,
       searchTypes: searchTypesList,
