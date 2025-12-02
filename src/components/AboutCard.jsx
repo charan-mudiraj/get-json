@@ -9,22 +9,27 @@ export default function AboutCard() {
     <div id="about">
       <div className="flex-row">
         <div id="what-sec">
-          <p className="about-title">What is it ?</p>
+          <p className="about-title">What is this ?</p>
           <p className="about-desc">
             "Get JSON" is a simple web-scraping tool which provides JSON data
-            from web-pages, required for your project. Thereby saving tons of
-            copy-pasting time.
+            from public web-pages, required for your project. Thereby saving
+            tons of copy-pasting time.
           </p>
         </div>
         <hr className="about-line" />
         <div id="how-sec">
-          <p className="about-title">How does it Work ?</p>
-          <p className="about-desc">
-            The URLs from which the similar(same props) data to be fetched are
-            specified in URLs Section. The Classes(whole string) of required
-            data's HTML element are specified in classes section, with other
-            optional settings.
-          </p>
+          <p className="about-title">How does this Work ?</p>
+          <ol>
+            <li className="about-desc">Add the data source web-page URLs.</li>
+            <li className="about-desc">
+              Add the CSS Selector of target HTML element which has the required
+              data.
+            </li>
+            <li className="about-desc">
+              Click on "Get JSON". This will scrape your required data from all
+              URLs and provide you the consolidated JSON output.
+            </li>
+          </ol>
         </div>
         <hr className="about-line" />
         <div id="demo-sec">
@@ -41,7 +46,7 @@ export default function AboutCard() {
         </div>
       </div>
       <span id="card-tag" onClick={toggleCard}>
-        Click Me !
+        About
       </span>
     </div>
   );

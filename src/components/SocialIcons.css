@@ -4,8 +4,9 @@
   width: 350px;
   gap: 10px;
   position: fixed;
-  bottom: 10px;
-  right: -190px;
+  bottom: 0;
+  right: -180px;
+  transform: scale(0.7);
 }
 
 .card svg {

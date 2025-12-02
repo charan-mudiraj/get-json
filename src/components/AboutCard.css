@@ -1,17 +1,22 @@
 #about {
   color: rgba(255, 255, 255, 0.856);
   font-family: Comic Sans MS;
-  width: 410px;
+  width: 390px;
   text-align: center;
   display: grid;
   grid-template-columns: auto auto;
   margin-top: 25px;
   position: fixed;
-  left: -307px;
+  left: -313px;
   top: -2px;
   transition: 0.5s;
   z-index: 3;
+  pointer-events: none;
 }
+#about > * {
+  pointer-events: auto;
+}
+
 #about.closed {
   left: 0;
 }
@@ -26,7 +31,7 @@
 }
 .about-line {
   border: 2px dashed rgba(255, 255, 255, 0.856);
-  margin: 0 20px;
+  margin: 0 0px;
 }
 .about-title {
   color: rgba(1, 247, 83, 0.808);
@@ -48,11 +53,24 @@
   transform: rotate(90deg);
   position: relative;
   height: fit-content;
-  left: -38px;
+  left: -25px;
   top: 60px;
   background-color: rgba(179, 97, 3, 0.911);
   padding: 3px 25px 3px 7px;
   border-radius: 7px 30px 0 0;
   cursor: pointer;
   z-index: 1;
+}
+
+li.about-desc {
+  text-align: left;
+}
+
+ol {
+  margin: 0 0 16px 0;
+  padding: 0 0 0 20px;
+}
+
+.about-desc {
+  font-size: 14.5px;
 }
