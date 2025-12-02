@@ -218,7 +218,7 @@ export default function SavedCard() {
                             |
                           </span>
                           &nbsp;
-                          <span>Classes: {item.data.classes.length}</span>
+                          <span>Fields: {item.data.classes.length}</span>
                         </div>
 
                         <span
